@@ -15,7 +15,7 @@ public class Ex14 {
 			if (s.charAt(i) == c) {
 
 				encounterC++;
-s
+
 				if (encounterC == 3) { // changind the i to the c in the middle of the word
 					numOfWords++;
 					i = middleCIndex;
