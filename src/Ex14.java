@@ -1,8 +1,12 @@
+import java.util.function.IntConsumer;
+
 import com.sun.javafx.runtime.VersionInfo;
+
+import javafx.beans.binding.BooleanBinding;
 
 public class Ex14 {
 
-	/* Q1.a */
+	/*******************************QEUSTION 1.a**************************/
 	/* Complexity O(N) */
 	public static int subStrC(String s, char c) {
 
@@ -39,7 +43,7 @@ public class Ex14 {
 		return numOfWords;
 	}
 
-	/* Q1.b */
+	/*******************************QEUSTION 1.b**************************/
 	/* Complexity O(N) */
 	public static int subStrMaxC(String s, char c, int k) {
 
@@ -98,6 +102,9 @@ public class Ex14 {
 		return numOfWords;
 	}
 
+	
+	
+	/*******************************QEUSTION 2**************************/
 	public static void zeroDistance(int[] a) {
 		int counterZeros = 0;
 		int startIndex = 0;
@@ -147,7 +154,8 @@ public class Ex14 {
 
 	}
 
-	public static void printArr(int[] a) {
+	public static void printArr(int[] a) { /************************************DELETE AFTER TESTING*************************************/
+	
 		for (int i = 1; i < a.length; i++) {
 			if (i < a.length - 1)
 				System.out.print(a[i] + ",");
@@ -261,6 +269,67 @@ public class Ex14 {
 
 	}
 
+	
+	/*******************************QEUSTION 3**************************/
+	
+	/*General idea:
+	 * 1.method howManyTimes  that returns how many times a letter is accruing in the original string
+	 * 2.compare the times the letter has accrued in the original string against every letter in the transform string - 
+	 * if its not there return false , if every letter is equal or more against all the letter in the transform string
+	 * than its ok and i can return true
+	 * */
+	
+	
+	
+
+	 
+	public static boolean isTrans (String s, String t) {
+		
+		
+		return isTrans(s,t,0);
+	}
+	
+	public static boolean isTrans (String s, String t, int i) {
+		
+		int occurrenceOfLeterInString =  howManyTimesOccurreInString(s,i, s.charAt(i));
+
+		if(i==s.length() )
+			return true;
+		
+		if(CheckOccurrensInTrans(t,i) <= occurrenceOfLeterInString)
+			return isTrans (s,t,i+1);
+		else
+			return false;
+		
+	}
+	
+	private static int CheckOccurrensInTrans(String t, int i) {
+		int letterOccurreInTrans = 0;
+		
+		if(i==t.length())
+			return letterOccurreInTrans;
+		
+		if(s.charAt(i)  == letter)
+			letterOccurre++;
+		
+		
+	}
+	
+	/*this method returns how many times a letter is accruing in the original string*/
+	private static int howManyTimesOccurreInString(String s, int i, int letter) {
+		int letterOccurre = 0;
+		
+		if(i==s.length())
+			return letterOccurre;
+		
+		if(s.charAt(i)  == letter)
+			letterOccurre++;
+		
+		howManyTimesOccurreInString(s,i+1);
+		
+		
+	}
+	
 	public static void main(String[] args) {
 
 		String s = "abc";
