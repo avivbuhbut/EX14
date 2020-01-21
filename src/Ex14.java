@@ -1,8 +1,8 @@
 
-
 public class Ex14 {
 
-	/* Q1 */
+	/* Q1.a */
+	/*Complexity O(N)*/
 	public static int subStrC(String s, char c) {
 
 		int encounterC = 0;
@@ -38,6 +38,9 @@ public class Ex14 {
 		return numOfWords;
 	}
 
+	
+	/* Q1.b */
+	/*Complexity O(N)*/
 	public static int subStrMaxC(String s, char c, int k) {
 
 		int encounterC = 0;
