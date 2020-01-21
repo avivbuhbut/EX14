@@ -1,4 +1,4 @@
-import com.sun.jndi.url.iiopname.iiopnameURLContextFactory;
+
 
 public class Ex14 {
 
@@ -43,61 +43,63 @@ public class Ex14 {
 		int encounterC = 0;
 		int numOfWords = 0;
 		int returnToIndex = 0;
-		int secRun = 0;
+		int counterCsInWords = 0;
+		int maxCsInWord = k;
+		int secRound = 0;
 
 		for (int i = 0; i < s.length();) {
 
-
-				
-			
-			
-			
 			if (s.charAt(i) == c) {
-				
 
 				encounterC++;
 
-				if (Math.abs(encounterC - k) == k) {
-					encounterC = 0;
-					i = returnToIndex;
-					numOfWords += 2;
-
-				}
-				
-				
-
 				if (encounterC < 2)
 					i++;
-
-				if (encounterC == 2 && encounterC <= k && secRun==0) {
-					numOfWords++;
+				if (encounterC == 2) {
 					returnToIndex = i;
+					numOfWords++;
+					counterCsInWords++;
 					i++;
 
 				}
 
-				if (encounterC > 2 && encounterC <= k && secRun ==0) { 
+				if (encounterC > 2 && counterCsInWords <= maxCsInWord && secRound == 0) {
+					counterCsInWords++;
 					numOfWords += 2;
 					i++;
-					
-				}else if(encounterC > 2 && encounterC <= k && secRun ==1) {
-					numOfWords++;
-					i++;
-				}
-			
 
-			} else
+				}
+
+				else if (encounterC > 2 && counterCsInWords <= maxCsInWord && secRound == 1) {
+
+					if (counterCsInWords == maxCsInWord)
+						i++;
+
+				}
+
+			} else {
 				i++;
 
+				if (i == s.length() && secRound != 1) {
+					i = returnToIndex;
+					counterCsInWords = maxCsInWord - 1;
+					encounterC = 0;
+					secRound = 1;
+
+				}
+
+			}
+
 		}
+
 		return numOfWords;
 	}
 
 	public static void main(String[] args) {
 
-		String s = "abcbcabcacab";
+		String s = "abc";
 
-		System.out.println(subStrMaxC(s, 'c',2));
+		System.out.println(subStrMaxC(s, 'c', 0));
 
 	}
 
