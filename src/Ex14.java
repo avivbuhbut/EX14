@@ -1,6 +1,7 @@
 import java.util.function.IntConsumer;
 
 import com.sun.javafx.runtime.VersionInfo;
+import com.sun.xml.internal.ws.handler.HandlerProcessor.RequestOrResponse;
 
 import javafx.beans.binding.BooleanBinding;
 
@@ -296,27 +297,28 @@ public class Ex14 {
 		if(i==s.length() )
 			return true;
 		
-		if(CheckOccurrensInTrans(t,i) <= occurrenceOfLeterInString)
+		if(CheckOccurrensInTrans(t,i,s.charAt(i)) <= occurrenceOfLeterInString)
 			return isTrans (s,t,i+1);
 		else
 			return false;
 		
 	}
 	
-	private static int CheckOccurrensInTrans(String t, int i) {
+	private static int CheckOccurrensInTrans(String t, int i, char letter) {
 		int letterOccurreInTrans = 0;
 		
 		if(i==t.length())
 			return letterOccurreInTrans;
 		
-		if(s.charAt(i)  == letter)
-			letterOccurre++;
+		if(t.charAt(i)  == letter)
+			letterOccurreInTrans++;
 		
+		return  CheckOccurrensInTrans(t,i+1,letter);
 		
 	}
 	
 	/*this method returns how many times a letter is accruing in the original string*/
-	private static int howManyTimesOccurreInString(String s, int i, int letter) {
+	private static int howManyTimesOccurreInString(String s, int i, char letter) {
 		int letterOccurre = 0;
 		
 		if(i==s.length())
@@ -325,7 +327,7 @@ public class Ex14 {
 		if(s.charAt(i)  == letter)
 			letterOccurre++;
 		
-		howManyTimesOccurreInString(s,i+1);
+		howManyTimesOccurreInString(s,i+1,letter);
 		
 		
 	}
