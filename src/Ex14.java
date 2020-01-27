@@ -1,7 +1,8 @@
+import com.sun.org.apache.bcel.internal.generic.RETURN;
 
 public class Ex14 {
 
-	/*******************************QEUSTION 1.a**************************/
+	/******************************* QEUSTION 1.a **************************/
 	/* Complexity O(N) */
 	public static int subStrC(String s, char c) {
 
@@ -38,7 +39,7 @@ public class Ex14 {
 		return numOfWords;
 	}
 
-	/*******************************QEUSTION 1.b**************************/
+	/******************************* QEUSTION 1.b **************************/
 	/* Complexity O(N) */
 	public static int subStrMaxC(String s, char c, int k) {
 
@@ -97,9 +98,7 @@ public class Ex14 {
 		return numOfWords;
 	}
 
-	
-	
-	/*******************************QEUSTION 2**************************/
+	/******************************* QEUSTION 2 **************************/
 	public static void zeroDistance(int[] a) {
 		int counterZeros = 0;
 		int startIndex = 0;
@@ -115,24 +114,22 @@ public class Ex14 {
 			if (a[i] == 0)
 				counterZeros++;
 		}
-		
-		
-			if (counterZeros == 1 && a[startIndex] == 0) {
-				flagSingle0AtStartIndex = 1;
-			}
 
-			else if (counterZeros == 1 && a[lastIndex] == 0) {
-				flagSingle0AtLastIndex = 1;
-			}
+		if (counterZeros == 1 && a[startIndex] == 0) {
+			flagSingle0AtStartIndex = 1;
+		}
 
-			else if (counterZeros == 1) {
-				flagSingle0MidArr = 1;
+		else if (counterZeros == 1 && a[lastIndex] == 0) {
+			flagSingle0AtLastIndex = 1;
+		}
 
-			} else {
-				flagMoreThan1Zero = 1;
-			}
+		else if (counterZeros == 1) {
+			flagSingle0MidArr = 1;
 
-		
+		} else {
+			flagMoreThan1Zero = 1;
+		}
+
 		if (flagSingle0AtStartIndex == 1)
 			a = SingleZeroAtStart(a);
 
@@ -149,8 +146,10 @@ public class Ex14 {
 
 	}
 
-	public static void printArr(int[] a) { /************************************DELETE AFTER TESTING*************************************/
-	
+	public static void printArr(int[] a) { /************************************
+											 * DELETE AFTER TESTING
+											 *************************************/
+
 		for (int i = 1; i < a.length; i++) {
 			if (i < a.length - 1)
 				System.out.print(a[i] + ",");
@@ -222,130 +221,132 @@ public class Ex14 {
 		int indexNextZero = 0;
 		int counterZeros = 0;
 
-int number = 0;
+		int number = 0;
 
 		for (int i = 0; i < a.length; i++) { // finding the zero index
 
-			
-			
-			
-			if (a[i] == 1 ) {
+			if (a[i] == 1) {
 				a[i] = ++number;
-			}else {
-				number =0;
+			} else {
+				number = 0;
 			}
-	
+
 		}
 
-	
-
-	return a;
+		return a;
 
 	}
 
-	
-	/*******************************QEUSTION 3**************************/
-	
-	/*General idea:
-	 * 1.method howManyTimes  that returns how many times a letter is accruing in the original string
-	 * 2.compare the times the letter has accrued in the original string against every letter in the transform string - 
-	 * if its not there return false , if every letter is equal or more against all the letter in the transform string
-	 * than its ok and i can return true
-	 * */
-	
-	
-	
+	/******************************* QEUSTION 3 **************************/
 
-	 
-	public static boolean isTrans (String s, String t) {
-		
-		
-		return isTrans(s,t,0);
-	}
-	
-	public static boolean isTrans (String s, String t, int i) {
-		int sumletterOccurrence = 0;
-		int sumLetterOccurreInTrans = 0;
-		
-		
-		int occurrenceOfLeterInString =  howManyTimesOccurreInString(s,i,sumletterOccurrence, s.charAt(i));
+	/*
+	 * General idea: 1.method howManyTimes that returns how many times a letter is
+	 * accruing in the original string 2.compare the times the letter has accrued in
+	 * the original string against every letter in the transform string - if its not
+	 * there return false , if every letter is equal or more against all the letter
+	 * in the transform string than its ok and i can return true
+	 */
 
-		if(i==s.length() )
-			return true;
-		
-		if(CheckOccurrensInTrans(t,i,sumLetterOccurreInTrans,s.charAt(i)) <= occurrenceOfLeterInString)
-			return isTrans (s,t,i+1);
-		else
-			return false;
-		
+	public static boolean isTrans(String s, String t) {
+
+		return isTrans(s, t, 0);
 	}
+
+	private static boolean sameOrder(String s, String t, int indexS, int indexT) {
+
+		if (CheckOccurrensInTrans(t, indexS, s.charAt(indexS)) >= howManyTimesOccurreInString(s, indexS,
+			s.charAt(indexS))) {
+
+		
+
+			if ((indexS == s.length() - 1 && indexT < t.length() - 1) && s.charAt(indexS) == t.charAt(indexT)) {
+				return sameOrder(s, t, indexS, indexT + 1);
+			} else if (((indexS == s.length() - 1 && indexT < t.length() - 1) && s.charAt(indexS) != t.charAt(indexT)))
+				return sameOrder(s, t, indexS, indexT+1);
+
+			if ((indexS >= s.length() || indexT >= t.length()) && t.length() == s.length())
+				return false;
+
+			if ((indexS == s.length() - 1 && indexT == t.length() - 1) && (s.charAt(indexS) == t.charAt(indexT))) {
+				return true;
+			} else if ((indexS == s.length() - 1 && indexT == t.length() - 1)
+					&& (s.charAt(indexS) != t.charAt(indexT))) {
+				return false;
+			}
+
+			if (s.charAt(indexS) == t.charAt(indexT)) {
+				return sameOrder(s, t, indexS + 1, indexT + 1);
+			} else {
+				
+				if (indexS > 0)
+					if (t.charAt(indexT) == s.charAt(indexS - 1))
+						return sameOrder(s, t, indexS, indexT + 1);
+					else
+						return false;
+
+				if (indexT > 0)
+					if (t.charAt(indexT - 1) == s.charAt(indexS))
+						return sameOrder(s, t, indexS + 1, indexT);
+					else
+						return sameOrder(s, t, indexS, indexT + 1);
+
+			}
+
+		} 
+
 	
-	private static int CheckOccurrensInTrans(String t, int i, int sumLetterOccurreInTrans,char letter) {
-		
-		
-		if(i==t.length())
-			return sumLetterOccurreInTrans;
-		
-		System.out.println("t.charAt(i):  " + t.charAt(i) + " letter: " + letter);
-		if(t.charAt(i)  == letter)
-			sumLetterOccurreInTrans++;
-		
-		return  CheckOccurrensInTrans(t,i+1,sumLetterOccurreInTrans,letter);
-		
+		return false;
 	}
-	
-	/*this method returns how many times a letter is accruing in the original string*/
-	private static int howManyTimesOccurreInString(String s, int sumletterOccurre,int i, char letter) {
-		
-		
-		if(i==s.length())
-			return sumletterOccurre;
-		
-		System.out.println("s.charAt(i):  " + s.charAt(i) + " letter: " + letter);
-		if(s.charAt(i)  == letter)
-			sumletterOccurre++;
-	
-			
-		
-		return howManyTimesOccurreInString(s,sumletterOccurre,i+1,letter);
-		
+
+	private static boolean isTrans(String s, String t, int i) {
+
+		return sameOrder(s, t, 0, 0);
+
 	}
-	
-	public static boolean countPaths (int [][] mat,int i, int j) {
-		System.out.println(mat[i][j]);
-		if (j==mat.length-1 || i == mat.length-1) {
-			
-			return true;
-		}
+
+	private static int CheckOccurrensInTrans(String t, int i, char letter) {
+
+		if (i == t.length())
+			return 0;
+
 		
-		 
-		 
-		 return countPaths(mat, i, j+1) ||countPaths(mat, i+1, j);
-		
+		if (t.charAt(i) == letter)
+			return 1 + CheckOccurrensInTrans(t, i + 1, letter);
+
+		return CheckOccurrensInTrans(t, i + 1, letter);
+
 	}
-	
-	public static boolean countPaths (int [][] mat) {
-		return countPaths(mat,0,0);
-	
+
+	/*
+	 * this method returns how many times a letter is accruing in the original
+	 * string
+	 */
+	private static int howManyTimesOccurreInString(String s, int i, char letter) {
+
+		if (i == s.length())
+			return 0;
+
 		
+		if (s.charAt(i) == letter)
+			return 1 + howManyTimesOccurreInString(s, i + 1, letter);
+		;
+
+		return howManyTimesOccurreInString(s, i + 1, letter);
+
 	}
-	
-	
-	
-	
+
 	public static void main(String[] args) {
-
-
 
 		int a[] = { 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1 };
 
-		
-		int [][] mat = {
-				{1,2,3},
-				{4,5,6},
-		};
-		countPaths(mat);
-		zeroDistance(a);
+		int[][] mat = { { 1, 2, 3 }, { 4, 5, 6 }, };
+
+		String s = "abbcd";
+
+		String trans = "a";
+		System.out.println(isTrans(s, trans));
+
+		// zeroDistance(a);
 
 	}
 
