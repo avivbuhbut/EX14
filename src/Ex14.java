@@ -1,10 +1,27 @@
-import com.sun.jndi.url.iiopname.iiopnameURLContextFactory;
-import com.sun.org.apache.bcel.internal.generic.RETURN;
+
+
+/**
+ * 
+ * @author Aviv Buhbut , ID: 204445084
+ *
+ */
 
 public class Ex14 {
 
 	/******************************* QEUSTION 1.a **************************/
-	/* Complexity O(N) */
+	/* Time Complexity O(N) */
+	/* Space Complexity O(1) */
+	
+	
+	/**
+	 * 
+	 * this method calculates how many words there are in the string that starts and ends with the letter 'c'
+	 * 
+	 * @param s - the string to check
+	 * @param c - the letter 'c'
+	 * @return - how many strings there are in the string s that starts and ends with the letter 'c'
+	 */
+	
 	public static int subStrC(String s, char c) {
 
 		int encounterC = 0;
@@ -41,7 +58,20 @@ public class Ex14 {
 	}
 
 	/******************************* QEUSTION 1.b **************************/
-	/* Complexity O(N) */
+	/* Time Complexity O(N) */
+	/* Space Complexity O(1) */
+	
+	
+	/**
+	 * this method calculates how many strings there are in the string that starts and ends with the letter 'c'
+	 * with the minimum occurrence of k times between 2 c's
+	 * 
+	 * @param s - the string to check
+	 * @param c - the letter c
+	 * @param k - max times c can accrue in the word
+	 * @return - how many strings there are in the string that starts and ends with the letter 'c'
+	 */
+	
 	public static int subStrMaxC(String s, char c, int k) {
 
 		int encounterC = 0;
@@ -100,6 +130,18 @@ public class Ex14 {
 	}
 
 	/******************************* QEUSTION 2 **************************/
+	
+	/* Time Complexity O(N) */
+	/* Space Complexity O(1) */
+	
+	
+	
+	/**
+	 * this method checks the distance between 2 zeros in the array and changes the array accordingly 
+	 * 
+	 * @param a  - the array to check
+	 */
+
 	public static void zeroDistance(int[] a) {
 		int counterZeros = 0;
 		int startIndex = 0;
@@ -118,16 +160,19 @@ public class Ex14 {
 
 		if (counterZeros == 1 && a[startIndex] == 0) {
 			flagSingle0AtStartIndex = 1;
+
 		}
 
 		else if (counterZeros == 1 && a[lastIndex] == 0) {
 			flagSingle0AtLastIndex = 1;
+
 		}
 
 		else if (counterZeros == 1) {
 			flagSingle0MidArr = 1;
 
 		} else {
+
 			flagMoreThan1Zero = 1;
 		}
 
@@ -143,21 +188,16 @@ public class Ex14 {
 		if (flagMoreThan1Zero == 1)
 			a = MoreThan1Zero(a);
 
-		printArr(a);
+	
 
 	}
-
-	public static void printArr(int[] a) { /************************************
-											 * DELETE AFTER TESTING
-											 *************************************/
-
-		for (int i = 1; i < a.length; i++) {
-			if (i < a.length - 1)
-				System.out.print(a[i] + ",");
-			else
-				System.out.print(a[i]);
-		}
-	}
+	
+	/**
+	 *  changes the array in case of 1 zero in the start of the array
+	 *  
+	 * @param a - the array
+	 * @return - the array after the changes
+	 */
 
 	private static int[] SingleZeroAtStart(int[] a) {
 
@@ -171,6 +211,13 @@ public class Ex14 {
 
 		return a;
 	}
+	
+	/**
+	 *  changes the array in case of 1 zero in the end of the array
+	 *  
+	 * @param a - the array
+	 * @return - the array after the changes
+	 */
 
 	private static int[] SingleZeroAtLastIndex(int[] a) {
 		int distance = 1;
@@ -186,6 +233,13 @@ public class Ex14 {
 		return a;
 
 	}
+	
+	/**
+	 *  changes the array in case of 1 zero in the middle
+	 *  
+	 * @param a - the array
+	 * @return - the array after the changes
+	 */
 
 	private static int[] SingleZeroInMiddle(int[] a) {
 
@@ -215,55 +269,79 @@ public class Ex14 {
 
 		return a;
 	}
+	
+	
+	/**
+	 *  changes the array in case of more than 1 zero
+	 *  
+	 * @param a - the array
+	 * @return - the array after the changes
+	 */
 
 	private static int[] MoreThan1Zero(int[] a) {
 
-		int indexFirstZero = 0;
-		int indexNextZero = 0;
+		int counter = 1;
+
 		int counterZeros = 0;
 
-		int number = 0;
+		for (int i = 0; i < a.length; i++) {
 
-		for (int i = 0; i < a.length; i++) { // finding the zero index
+			if (a[i] == 0)
+				counterZeros++;
 
-			if (a[i] == 1) {
-				a[i] = ++number;
-			} else {
-				number = 0;
+			if (a[i] == 1 && counterZeros < 2) {
+				a[i] = counter++;
+
+			}
+
+			if (a[i] == 1 && counterZeros == 2) {
+				counter = 1;
+				a[i] = counter++;
+				counterZeros = 1;
+
 			}
 
 		}
 
-		return a;
+		counterZeros = 0;
+		counter = -1;
 
+		for (int i = a.length - 1; i > 0; i--) {
+
+			if (counter < a[i] && counter > 0)
+				a[i] = counter++;
+
+			if (a[i] == 0)
+				counter = 1;
+
+		}
+
+		return a;
 	}
 
+	
 	/******************************* QEUSTION 3 **************************/
-
-	/*
-	 * General idea: 1.method howManyTimes that returns how many times a letter is
-	 * accruing in the original string 2.compare the times the letter has accrued in
-	 * the original string against every letter in the transform string - if its not
-	 * there return false , if every letter is equal or more against all the letter
-	 * in the transform string than its ok and i can return true
+	
+	/**
+	 * 
+	 * @param s - the string to check
+	 * @param t - the  string to check if it has been transform
+	 * @return - true if the string has been transform
 	 */
-
 	public static boolean isTrans(String s, String t) {
 
-		return isTrans(s, t, 0);
+		return isTrans(s, t, 0, 0);
 	}
 
-	private static boolean sameOrder(String s, String t, int indexS, int indexT) {
+	private static boolean isTrans(String s, String t, int indexS, int indexT) {
 
 		if (CheckOccurrensInTrans(t, indexS, s.charAt(indexS)) >= howManyTimesOccurreInString(s, indexS,
-			s.charAt(indexS))) {
-
-		
+				s.charAt(indexS))) {
 
 			if ((indexS == s.length() - 1 && indexT < t.length() - 1) && s.charAt(indexS) == t.charAt(indexT)) {
-				return sameOrder(s, t, indexS, indexT + 1);
+				return isTrans(s, t, indexS, indexT + 1);
 			} else if (((indexS == s.length() - 1 && indexT < t.length() - 1) && s.charAt(indexS) != t.charAt(indexT)))
-				return sameOrder(s, t, indexS, indexT+1);
+				return isTrans(s, t, indexS, indexT + 1);
 
 			if ((indexS >= s.length() || indexT >= t.length()) && t.length() == s.length())
 				return false;
@@ -276,41 +354,42 @@ public class Ex14 {
 			}
 
 			if (s.charAt(indexS) == t.charAt(indexT)) {
-				return sameOrder(s, t, indexS + 1, indexT + 1);
+				return isTrans(s, t, indexS + 1, indexT + 1);
 			} else {
-				
+
 				if (indexS > 0)
 					if (t.charAt(indexT) == s.charAt(indexS - 1))
-						return sameOrder(s, t, indexS, indexT + 1);
+						return isTrans(s, t, indexS, indexT + 1);
 					else
 						return false;
 
 				if (indexT > 0)
 					if (t.charAt(indexT - 1) == s.charAt(indexS))
-						return sameOrder(s, t, indexS + 1, indexT);
+						return isTrans(s, t, indexS + 1, indexT);
 					else
-						return sameOrder(s, t, indexS, indexT + 1);
+						return isTrans(s, t, indexS, indexT + 1);
 
 			}
 
-		} 
+		}
 
-	
 		return false;
 	}
 
-	private static boolean isTrans(String s, String t, int i) {
 
-		return sameOrder(s, t, 0, 0);
-
-	}
-
+/**
+ * this method checks how many times a letter accruing in the transform string
+ * 
+ * @param t - the transform string
+ * @param i - the index
+ * @param letter - the letter to check
+ * @return - the number of times a letter apper in the transform stirng
+ */
 	private static int CheckOccurrensInTrans(String t, int i, char letter) {
 
 		if (i == t.length())
 			return 0;
 
-		
 		if (t.charAt(i) == letter)
 			return 1 + CheckOccurrensInTrans(t, i + 1, letter);
 
@@ -318,16 +397,23 @@ public class Ex14 {
 
 	}
 
-	/*
-	 * this method returns how many times a letter is accruing in the original
-	 * string
+
+	
+
+	/**
+	 * 
+	 * this method checks how many times a letter accruing in a string 
+	 * 
+	 * @param s - the string to check
+	 * @param i - the index 
+	 * @param letter - the letter to check 
+	 * @return - the number of times the letter accruing in the string
 	 */
 	private static int howManyTimesOccurreInString(String s, int i, char letter) {
 
 		if (i == s.length())
 			return 0;
 
-		
 		if (s.charAt(i) == letter)
 			return 1 + howManyTimesOccurreInString(s, i + 1, letter);
 		;
@@ -335,51 +421,31 @@ public class Ex14 {
 		return howManyTimesOccurreInString(s, i + 1, letter);
 
 	}
-	/*
+
+	/******************************* QEUSTION 4 **************************/
 	
-	public static void printPath(int [][] m) {
-		printPathWeights(m,0,0,0);
+	/**
+	 * this method calculates the numbers of paths there are in the 2d array
+	 * 
+	 * 
+	 * @param m - the 2d array
+	 * @return - how many paths there are
+	 */
+	public static int countPath(int[][] m) {
+		return countPath(m, 0, 0);
 	}
-	
-	private static void printPathWeights(int [][]m,int i, int j,int sum) {
 
-		if(i<0||i<=m.length|| j>=m[0].length)
-			return;
-		
-		if(m[i][j] == -1)
-			return;
-		
-		if(i==m.length-1 && j==m[0].length-1)
-			System.out.println(sum + m[m.length-1][m.length-1]);
-		
-		int temp = m[i][j];
-		m[i][j] = -1;
+	private static int countPath(int[][] m, int i, int j) {
 
-		printPathWeights(m, i+1, j, sum+temp);
-		printPathWeights(m, i, j+1, sum+temp);
-		printPathWeights(m, i-1, j, sum+temp);
-		printPathWeights(m, i, j-1, sum+temp);
-		m[i][j]=temp;
-		
-	}
-*/
-	public static void main(String[] args) {
+		if (i >= m.length || j >= m[0].length)
+			return 0;
 
-		int a[] = { 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1 };
+		if (i == m.length - 1 && j == m[0].length - 1)
+			return 1;
 
-		int[][] m = { 
-				{ 8, 4, 2, 4, 3 },
-				{ 6, 3, 8, 4, 5 },
-				{ 1, 4, 9, 9, 7 },
-				{ 2, 1, 7, 6, 5 },};
-
-		String s = "abbcd";
-
-		String trans = "a";
-	//	System.out.println(isTrans(s, trans));
-
-	printPath(m);
+		return countPath(m, i + m[i][j] / 10, j + m[i][j] % 10) + countPath(m, i + m[i][j] % 10, j + m[i][j] / 10);
 
 	}
+
 
 }
