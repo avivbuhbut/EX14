@@ -1,3 +1,4 @@
+import com.sun.jndi.url.iiopname.iiopnameURLContextFactory;
 import com.sun.org.apache.bcel.internal.generic.RETURN;
 
 public class Ex14 {
@@ -334,19 +335,50 @@ public class Ex14 {
 		return howManyTimesOccurreInString(s, i + 1, letter);
 
 	}
+	/*
+	
+	public static void printPath(int [][] m) {
+		printPathWeights(m,0,0,0);
+	}
+	
+	private static void printPathWeights(int [][]m,int i, int j,int sum) {
 
+		if(i<0||i<=m.length|| j>=m[0].length)
+			return;
+		
+		if(m[i][j] == -1)
+			return;
+		
+		if(i==m.length-1 && j==m[0].length-1)
+			System.out.println(sum + m[m.length-1][m.length-1]);
+		
+		int temp = m[i][j];
+		m[i][j] = -1;
+
+		printPathWeights(m, i+1, j, sum+temp);
+		printPathWeights(m, i, j+1, sum+temp);
+		printPathWeights(m, i-1, j, sum+temp);
+		printPathWeights(m, i, j-1, sum+temp);
+		m[i][j]=temp;
+		
+	}
+*/
 	public static void main(String[] args) {
 
 		int a[] = { 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1 };
 
-		int[][] mat = { { 1, 2, 3 }, { 4, 5, 6 }, };
+		int[][] m = { 
+				{ 8, 4, 2, 4, 3 },
+				{ 6, 3, 8, 4, 5 },
+				{ 1, 4, 9, 9, 7 },
+				{ 2, 1, 7, 6, 5 },};
 
 		String s = "abbcd";
 
 		String trans = "a";
-		System.out.println(isTrans(s, trans));
+	//	System.out.println(isTrans(s, trans));
 
-		// zeroDistance(a);
+	printPath(m);
 
 	}
 
